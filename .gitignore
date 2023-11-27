@@ -43,6 +43,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/iOS/firebase_app_id_file.json
-/lib/firebase_options.dart
+instagram_clone/iOS/firebase_app_id_file.json
+instagram_clone/lib/firebase_options.dart
 
