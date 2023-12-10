@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram_clone/root/account/account_model.dart';
+import 'package:instagram_clone/root/auth/auth.dart';
 
 import '../create/create_page.dart';
 import '../domain/post.dart';
@@ -25,6 +26,10 @@ class AccountPage extends StatelessWidget {
           IconButton(
             onPressed: () {
               accModel.logout();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Auth()),
+              );
             },
             icon: const Icon(Icons.exit_to_app),
           ),
@@ -63,7 +68,7 @@ class AccountPage extends StatelessWidget {
                                 MaterialPageRoute(builder: (context) => const CreatePage()),
                               );
                             },
-                            child: Icon(Icons.add),
+                            child: const Icon(Icons.add),
                           ),
                         ),
                       )
@@ -71,7 +76,7 @@ class AccountPage extends StatelessWidget {
                   ),
                   Text(
                     accModel.getDisplayName(),
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -80,10 +85,17 @@ class AccountPage extends StatelessWidget {
                   StreamBuilder<QuerySnapshot<Post>>(
                       stream: accModel.myPostsStream,
                       builder: (context, snapshot) {
-                        return Text(
-                          '${snapshot.data!.size}',
-                          style: TextStyle(fontSize: 15),
-                        );
+                        if(snapshot.hasData) {
+                          return Text(
+                            '${snapshot.data!.size}',
+                            style: const TextStyle(fontSize: 15),
+                          );
+                        }else{
+                          return const Text(
+                            '0',
+                            style: TextStyle(fontSize: 15),
+                          );
+                        }
                       }),
                   const Text(
                     '게시물',
@@ -156,6 +168,7 @@ class AccountPage extends StatelessWidget {
                   }),
             ),
           )
+
         ],
       ),
     );

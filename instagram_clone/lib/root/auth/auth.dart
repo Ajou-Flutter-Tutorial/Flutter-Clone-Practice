@@ -17,14 +17,6 @@ class Auth extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return LoginPage();
-            return SignInScreen(
-              providerConfigs: [
-                EmailProviderConfiguration(),
-              ],
-              headerBuilder: (context,constraints,_){
-                return Center(child: Text('Instagram Clone',style: TextStyle(fontSize: 40),),);
-              },
-            );
           }
 
           return const RootPage();

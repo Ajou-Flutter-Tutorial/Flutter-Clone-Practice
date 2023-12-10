@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget/bloc/counter_bloc.dart';
+import 'package:flutter_widget/provider/counter.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ChangeNotifierProvider(
+        create: (BuildContext context)=> Counter(),
+        child :const MyHomePage(title: 'Flutter Demo Home Page'),
+      )
     );
   }
 }
@@ -27,13 +32,18 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();$
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+
     final counterBloc = CounterBloc();
+
+    Counter counter = Provider.of<Counter>(context);
+
+    int count = counter.count;
 
     return Scaffold(
       appBar: AppBar(
